@@ -1,0 +1,58 @@
+// EventSample.idl : IDL source for EventSample
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (EventSample.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+
+[
+	object,
+	uuid(BE0A86FE-878A-48AC-A177-FEF7BEC68BB7),
+	pointer_default(unique)
+]
+interface ISessionInfo : IUnknown
+{
+	HRESULT GetName([out, retval] BSTR* name);
+};
+
+[
+	object,
+	uuid(332081de-7d49-4e98-af5a-be7ce523bf51),
+	pointer_default(unique)
+]
+interface ISession : IUnknown
+{
+	HRESULT Open([in] BSTR sessionName);
+};
+[
+	uuid(6c3de0f4-ef27-4d95-aa4d-9d57f6064f6b),
+	version(1.0),
+]
+library EventSampleLib
+{
+	importlib("stdole2.tlb");
+
+	const int DISPID_EVENTSAMPLE_METHOD_ON_OPENED = 1;
+	[
+		uuid(7e53e98b-efa0-4fef-aba5-9d4631fd5843)
+	]
+	dispinterface _ISessionEvents
+	{
+		properties:
+		methods:
+			[id(DISPID_EVENTSAMPLE_METHOD_ON_OPENED)] void OnOpened([in] ISessionInfo* info);
+	};
+	[
+		uuid(cea21542-ee76-48cf-8683-bce66ea8782c)
+	]
+	coclass Session
+	{
+		[default] interface ISession;
+		[default, source] dispinterface _ISessionEvents;
+	};
+};
+
+import "shobjidl.idl";

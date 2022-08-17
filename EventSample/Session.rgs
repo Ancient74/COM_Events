@@ -1,0 +1,14 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {cea21542-ee76-48cf-8683-bce66ea8782c} = s 'Session class'
+		{
+			InprocServer32 = s '%MODULE%'
+			{
+			}
+			TypeLib = s '{6c3de0f4-ef27-4d95-aa4d-9d57f6064f6b}'
+			Version = s '1.0'
+		}
+	}
+}
